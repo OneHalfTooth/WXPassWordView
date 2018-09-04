@@ -17,7 +17,7 @@ class ViewController: UIViewController,MMPassWordDelete {
 
         self.view.backgroundColor = UIColor.init(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
 
-        let view = MMPassWordView.show(delegate: self,count: 6, lineColor: UIColor.init(red: (221 / 255.0), green:  (221 / 255.0), blue:  (221 / 255.0), alpha: 1), lineWidth: 1, fillColor: UIColor.black)
+        let view = MMPassWordView.show(delegate: self,count: 6, lineColor: UIColor.init(red: (221 / 255.0), green:  (221 / 255.0), blue:  (221 / 255.0), alpha: 1), lineWidth: 1, fillColor: UIColor.black,animationColor: UIColor.blue)
         self.view.addSubview(view)
 
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +39,7 @@ class ViewController: UIViewController,MMPassWordDelete {
 
     func passwordDidInput(pwView: MMPassWordView) -> Bool {
         print("输入结束")
-        return true
+        return false
     }
     func passwordBeginInput(pwView: MMPassWordView) -> Bool {
         print("输入开始")

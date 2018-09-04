@@ -22,9 +22,12 @@ class MMPassWordView: UIView,UIKeyInput {
     fileprivate var lineWidth : CGFloat = 1
     /** 设置黑点颜色 */
     fileprivate var fillColor: UIColor = UIColor.black
+    /** 动画的颜色 */
+    fileprivate var animationColor = UIColor.red
     /** 动画layout */
     fileprivate var animationLayer : CAShapeLayer?
 
+    
     /** 输入完成自动收起键盘 */
     var isAutoHiddexKeyBoard  = true
 
@@ -38,12 +41,14 @@ class MMPassWordView: UIView,UIKeyInput {
      * @param lineColor 分割线的颜色
      * @param lineWidth 分割线的宽度
      * @param fillColor 黑色远点的填充色
+     * @param animationColor 动画的颜色
      */
     public class func show(delegate:MMPassWordDelete?,
                            count : Int = 6,
                            lineColor : UIColor = UIColor.gray,
                            lineWidth:CGFloat = 1,
-                           fillColor:UIColor = UIColor.black
+                           fillColor:UIColor = UIColor.black,
+                           animationColor : UIColor = UIColor.red
         ) -> MMPassWordView{
         let pw = MMPassWordView.init(frame: .zero)
         pw.passWordCount = count
@@ -51,6 +56,7 @@ class MMPassWordView: UIView,UIKeyInput {
         pw.lineWidth = lineWidth
         pw.fillColor = fillColor
         pw.delegate = delegate
+        pw.animationColor = animationColor
         return pw
     }
 
@@ -78,6 +84,7 @@ class MMPassWordView: UIView,UIKeyInput {
     }
 
     override func draw(_ rect: CGRect) {
+        /** 绘制边框 */
         let context = UIGraphicsGetCurrentContext()
         context?.setLineWidth(self.lineWidth * 2)
         context?.setStrokeColor(self.lineColor.cgColor)
@@ -86,6 +93,7 @@ class MMPassWordView: UIView,UIKeyInput {
         context?.addPath(bezier.cgPath)
         context?.drawPath(using: .eoFillStroke)
 
+        /** 绘制线条 */
         let width = self.bounds.size.width / CGFloat(self.passWordCount)
         context?.setLineWidth(self.lineWidth)
         for i in 1 ..< self.passWordCount {
@@ -94,9 +102,10 @@ class MMPassWordView: UIView,UIKeyInput {
             context?.closePath()
         }
         context?.drawPath(using: .stroke)
+        /** 绘制底部的线 */
         if self.text.count == 6 || self.isFirstResponder{
             context?.move(to: CGPoint.init(x: 0, y: self.bounds.size.height - 1))
-            context?.setStrokeColor(UIColor.green.cgColor)
+            context?.setStrokeColor(self.animationColor.cgColor)
             let count = self.text.count <= self.passWordCount ? self.text.count + 1 : self.text.count
             let x = CGFloat(count) * width
             context?.addLine(to: CGPoint.init(x: x, y: self.bounds.size.height - 1))
@@ -106,6 +115,7 @@ class MMPassWordView: UIView,UIKeyInput {
         if self.text.count < 1{ /** 没有输入 不绘制远点 */
             return
         }
+        /** 绘制远点 */
         context?.setFillColor(self.fillColor.cgColor)
         for i in 1 ... self.text.count {
             let center = CGFloat(i) * width - width / 2.0
@@ -133,11 +143,18 @@ class MMPassWordView: UIView,UIKeyInput {
         let shapeLayer = CAShapeLayer.init()
         shapeLayer.lineWidth = 1
         shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeColor = UIColor.red.cgColor
+        shapeLayer.strokeColor = self.animationColor.cgColor
         shapeLayer.path = bezire.cgPath
         shapeLayer.add(animation, forKey: "loadingAnimation")
         self.animationLayer = shapeLayer
         self.layer.addSublayer(shapeLayer)
+    }
+    fileprivate func stopAnimation() -> Void{
+        if self.animationLayer != nil {
+            self.animationLayer?.removeAnimation(forKey: "loadingAnimation")
+            self.animationLayer?.removeFromSuperlayer()
+            self.animationLayer = nil
+        }
     }
 
 
@@ -161,6 +178,7 @@ class MMPassWordView: UIView,UIKeyInput {
         self.text = self.text + text
         self.setNeedsDisplay()
         if self.text.count >= self.passWordCount{ /** 用户输入完成 */
+            self.startAnimation()
             if self.delegate?.passwordDidInput?(pwView: self) == false{ /** 输入完成 并且，不允许收起键盘 */
                 self.delegate?.passwordCancel?(text: self.text)
                 return
@@ -168,7 +186,6 @@ class MMPassWordView: UIView,UIKeyInput {
             if self.isAutoHiddexKeyBoard{ /** 自动收起键盘 */
                 self.resignFirstResponder()
             }
-            self.startAnimation()
             self.delegate?.passwordCancel?(text: self.text)
             return
         }
@@ -180,6 +197,7 @@ class MMPassWordView: UIView,UIKeyInput {
         }
         self.text.remove(at: self.text.index(before: self.text.endIndex))
         self.setNeedsDisplay()
+        self.stopAnimation()
     }
 
     @discardableResult
@@ -190,11 +208,7 @@ class MMPassWordView: UIView,UIKeyInput {
         if self.delegate?.passwordBeginInput?(pwView: self) == false{
             return false
         }
-        if self.animationLayer != nil {
-            self.animationLayer?.removeAnimation(forKey: "<#T##String#>")
-            self.animationLayer?.removeFromSuperlayer()
-            self.animationLayer = nil
-        }
+        self.stopAnimation()
         self.setNeedsDisplay()
         return super.becomeFirstResponder()
     }
