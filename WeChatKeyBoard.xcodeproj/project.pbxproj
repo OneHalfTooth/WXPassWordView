@@ -12,7 +12,11 @@
 		6200C620213D48A5009100E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6200C61E213D48A5009100E8 /* Main.storyboard */; };
 		6200C622213D48A6009100E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6200C621213D48A6009100E8 /* Assets.xcassets */; };
 		6200C625213D48A6009100E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6200C623213D48A6009100E8 /* LaunchScreen.storyboard */; };
-		6200C62E213D48DB009100E8 /* MMKeyBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6200C62D213D48DB009100E8 /* MMKeyBoardView.swift */; };
+		62451B46213E60AD0003C004 /* MMPassWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62451B44213E60AD0003C004 /* MMPassWordView.swift */; };
+		62451B47213E60AD0003C004 /* MMKeyBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62451B45213E60AD0003C004 /* MMKeyBoardView.swift */; };
+		62451B49213E67E80003C004 /* MMKeyBoardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62451B48213E67E80003C004 /* MMKeyBoardView.xib */; };
+		62451B4C213E8F390003C004 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62451B4B213E8F390003C004 /* CoreGraphics.framework */; };
+		62451B4E213E8F4E0003C004 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62451B4D213E8F4E0003C004 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +27,11 @@
 		6200C621213D48A6009100E8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6200C624213D48A6009100E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6200C626213D48A6009100E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6200C62D213D48DB009100E8 /* MMKeyBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMKeyBoardView.swift; sourceTree = "<group>"; };
+		62451B44213E60AD0003C004 /* MMPassWordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMPassWordView.swift; sourceTree = "<group>"; };
+		62451B45213E60AD0003C004 /* MMKeyBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMKeyBoardView.swift; sourceTree = "<group>"; };
+		62451B48213E67E80003C004 /* MMKeyBoardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MMKeyBoardView.xib; sourceTree = "<group>"; };
+		62451B4B213E8F390003C004 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		62451B4D213E8F4E0003C004 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +39,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62451B4E213E8F4E0003C004 /* QuartzCore.framework in Frameworks */,
+				62451B4C213E8F390003C004 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +52,7 @@
 			children = (
 				6200C619213D48A5009100E8 /* WeChatKeyBoard */,
 				6200C618213D48A5009100E8 /* Products */,
+				62451B4A213E8F380003C004 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,9 +81,20 @@
 		6200C62C213D48BF009100E8 /* MMKeyBoard */ = {
 			isa = PBXGroup;
 			children = (
-				6200C62D213D48DB009100E8 /* MMKeyBoardView.swift */,
+				62451B45213E60AD0003C004 /* MMKeyBoardView.swift */,
+				62451B48213E67E80003C004 /* MMKeyBoardView.xib */,
+				62451B44213E60AD0003C004 /* MMPassWordView.swift */,
 			);
 			path = MMKeyBoard;
+			sourceTree = "<group>";
+		};
+		62451B4A213E8F380003C004 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				62451B4D213E8F4E0003C004 /* QuartzCore.framework */,
+				62451B4B213E8F390003C004 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -134,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6200C625213D48A6009100E8 /* LaunchScreen.storyboard in Resources */,
+				62451B49213E67E80003C004 /* MMKeyBoardView.xib in Resources */,
 				6200C622213D48A6009100E8 /* Assets.xcassets in Resources */,
 				6200C620213D48A5009100E8 /* Main.storyboard in Resources */,
 			);
@@ -146,7 +169,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6200C62E213D48DB009100E8 /* MMKeyBoardView.swift in Sources */,
+				62451B46213E60AD0003C004 /* MMPassWordView.swift in Sources */,
+				62451B47213E60AD0003C004 /* MMKeyBoardView.swift in Sources */,
 				6200C61D213D48A5009100E8 /* ViewController.swift in Sources */,
 				6200C61B213D48A5009100E8 /* AppDelegate.swift in Sources */,
 			);
@@ -295,6 +319,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CQB6MW2MBZ;
 				INFOPLIST_FILE = WeChatKeyBoard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -313,6 +338,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CQB6MW2MBZ;
 				INFOPLIST_FILE = WeChatKeyBoard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

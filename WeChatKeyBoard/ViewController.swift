@@ -9,14 +9,17 @@
 import UIKit
 
 class ViewController: UIViewController,MMPassWordDelete {
-
+    @IBOutlet weak var textField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
 
         self.view.backgroundColor = UIColor.init(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
 
         let view = MMPassWordView.show(delegate: self,count: 6, lineColor: UIColor.init(red: (221 / 255.0), green:  (221 / 255.0), blue:  (221 / 255.0), alpha: 1), lineWidth: 1, fillColor: UIColor.black)
         self.view.addSubview(view)
+
         view.translatesAutoresizingMaskIntoConstraints = false
         let height = NSLayoutConstraint.init(item: view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 44)
         let width = NSLayoutConstraint.init(item: view, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 270)
@@ -41,6 +44,10 @@ class ViewController: UIViewController,MMPassWordDelete {
     func passwordBeginInput(pwView: MMPassWordView) -> Bool {
         print("输入开始")
         return true
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 
     override func didReceiveMemoryWarning() {
