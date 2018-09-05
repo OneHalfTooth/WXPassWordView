@@ -135,6 +135,7 @@ class MMPassWordView: UIView,UIKeyInput {
 //        bezire.addLine(to: CGPoint.init(x: 1, y: self.bounds.size.height - 1))
 
         let animation = CABasicAnimation.init(keyPath: "strokeEnd")
+        animation.timingFunction = CAMediaTimingFunction.init(name: kCAMediaTimingFunctionEaseInEaseOut)
         animation.duration = 1.5
         animation.fromValue = 0 as Any
         animation.toValue = 1 as Any
@@ -169,10 +170,15 @@ class MMPassWordView: UIView,UIKeyInput {
 
     func insertText(_ text: String) {
         if self.text.count >= self.passWordCount{
-            if self.delegate?.passwordDidInput?(pwView: self) == true{
+            /** 不允许收起键盘 */
+            if self.delegate?.passwordDidInput?(pwView: self) == false{
+                return
+            }
+            /** 允许收起键盘、并且允许自动收起键盘 */
+            if self.isAutoHiddexKeyBoard{
                 self.resignFirstResponder()
             }
-            self.delegate?.passwordCancel?(text: self.text)
+//            self.delegate?.passwordCancel?(text: self.text)
             return
         }
         self.text = self.text + text
@@ -188,6 +194,8 @@ class MMPassWordView: UIView,UIKeyInput {
             }
             self.delegate?.passwordCancel?(text: self.text)
             return
+        }else{
+            self.stopAnimation()
         }
     }
 
@@ -208,7 +216,6 @@ class MMPassWordView: UIView,UIKeyInput {
         if self.delegate?.passwordBeginInput?(pwView: self) == false{
             return false
         }
-        self.stopAnimation()
         self.setNeedsDisplay()
         return super.becomeFirstResponder()
     }
